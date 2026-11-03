@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f2e8">
+  <title>Admin Dashboard | Iya Mozzedat</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #25291f;
+      --muted: #687064;
+      --paper: #f7f2e8;
+      --surface: #fffdf8;
+      --green: #315b42;
+      --orange: #b94f31;
+      --line: #ded8ca;
+      --danger: #a3312a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 28px 20px 56px;
+      color: var(--ink);
+      background: linear-gradient(rgb(247 242 232 / 82%), rgb(232 238 229 / 86%)), url("breadand beans.png") center / cover no-repeat fixed;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    button, input, select { font: inherit; }
+    .page { width: min(100%, 980px); margin: 0 auto; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 44px; font: 700 0.9rem Arial, sans-serif; }
+    a, a:visited { color: var(--green); }
+    header { max-width: 700px; margin-bottom: 34px; }
+    .eyebrow { margin: 0 0 10px; color: var(--orange); font: 700 0.75rem Arial, sans-serif; text-transform: uppercase; }
+    h1 { margin: 0 0 10px; color: var(--green); font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 400; line-height: 1; }
+    .intro, .help { color: var(--muted); font: 0.95rem/1.6 Arial, sans-serif; }
+    .panel { margin: 18px 0; padding: clamp(18px, 4vw, 30px); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    .panel h2 { margin: 0 0 18px; color: var(--green); font-size: 1.5rem; font-weight: 400; }
+    .login-panel { width: min(100%, 430px); margin: 48px auto; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .field { display: grid; gap: 6px; }
+    .field.wide { grid-column: 1 / -1; }
+    label { color: var(--muted); font: 700 0.78rem Arial, sans-serif; }
+    input, select { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 5px; background: white; color: var(--ink); }
+    input:focus, select:focus { outline: 3px solid rgb(49 91 66 / 17%); border-color: var(--green); }
+    .primary, .remove { min-height: 42px; padding: 10px 14px; border: 0; border-radius: 5px; cursor: pointer; font: 700 0.88rem Arial, sans-serif; }
+    .primary { color: white; background: var(--green); }
+    .primary:hover { background: #244a34; }
+    .remove { color: var(--danger); background: #f8e9e5; }
+    .form-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .product-list { display: grid; gap: 12px; }
+    .product-row { display: grid; grid-template-columns: minmax(130px, 1fr) 120px 125px auto; align-items: end; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .product-row .field:first-child { align-self: stretch; }
+    .status { min-height: 1.4em; margin: 12px 0 0; color: var(--green); font: 0.88rem Arial, sans-serif; }
+    [hidden] { display: none !important; }
+    @media (max-width: 650px) {
+      .product-row { grid-template-columns: 1fr 1fr; }
+      .product-row .field:first-child { grid-column: 1 / -1; }
+      .product-row .remove { align-self: end; }
+    }
+    @media (max-width: 430px) { .fields { grid-template-columns: 1fr; } .field.wide { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="iya-mozzedat-menu.html">Menu</a>
+      <a href="cart-iya-mozzedat.html">Cart</a>
+      <a href="iya-mozzedat-order.html">Order</a>
+    </nav>
+    <section class="panel login-panel" id="login-panel">
+      <p class="eyebrow">Iya Mozzedat</p>
+      <h1>Admin access</h1>
+      <p class="intro">Enter the admin password to manage the menu.</p>
+      <form id="login-form">
+        <div class="field">
+          <label for="owner-password">Password</label>
+          <input id="owner-password" type="password" autocomplete="current-password" required>
+        </div>
+        <div class="form-actions"><button class="primary" type="submit">Unlock dashboard</button></div>
+        <p class="status" id="login-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <div id="dashboard" hidden>
+      <header>
+        <p class="eyebrow">Menu management</p>
+        <h1>Owner dashboard</h1>
+        <p class="intro">Add products, update prices, or remove items. Changes appear on the menu and cart in this browser.</p>
+      </header>
+      <section class="panel" aria-labelledby="add-heading">
+        <h2 id="add-heading">Add a product</h2>
+        <form id="add-form">
+          <div class="fields">
+            <div class="field"><label for="new-name">Product name</label><input id="new-name" required maxlength="60"></div>
+            <div class="field"><label for="new-category">Category</label><select id="new-category"><option>Food</option><option>Drinks</option></select></div>
+            <div class="field"><label for="new-price">Price (NGN)</label><input id="new-price" type="number" min="1" step="1" required></div>
+            <div class="field"><label for="new-detail">Serving / size</label><input id="new-detail" maxlength="50" placeholder="Per plate or bottle"></div>
+            <div class="field wide"><label for="new-image">Image path or URL (optional)</label><input id="new-image" type="text" placeholder="Example: jollof-rice.png"></div>
+          </div>
+          <div class="form-actions"><button class="primary" type="submit">Add product</button></div>
+        </form>
+      </section>
+      <section class="panel" aria-labelledby="products-heading">
+        <h2 id="products-heading">Products and prices</h2>
+        <div class="product-list" id="product-list"></div>
+        <p class="status" id="save-status" role="status" aria-live="polite"></p>
+      </section>
+      <p class="help">This static-site dashboard stores changes in this browser only. The password check is client-side and is not suitable for protecting a public production website.</p>
+    </div>
+  </main>
+  <script src="products.js"></script>
+  <script>
+    const loginPanel = document.getElementById("login-panel");
+    const dashboard = document.getElementById("dashboard");
+    const productList = document.getElementById("product-list");
+    const saveStatus = document.getElementById("save-status");
+    const naira = new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 });
+    let products = window.IyaProducts.getProducts();
+
+    document.getElementById("login-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const password = document.getElementById("owner-password").value;
+      if (password !== "@zeidan") {
+        document.getElementById("login-status").textContent = "That password did not match.";
+        return;
+      }
+      loginPanel.hidden = true;
+      dashboard.hidden = false;
+      renderProducts();
+    });
+
+    function save() {
+      window.IyaProducts.saveProducts(products);
+      saveStatus.textContent = "Menu saved.";
+    }
+
+    function renderProducts() {
+      productList.replaceChildren();
+      products.forEach((product, index) => {
+        const row = document.createElement("form");
+        row.className = "product-row";
+        const nameField = makeField("Product", "text", product.name);
+        const priceField = makeField("Price (NGN)", "number", product.price);
+        priceField.input.min = "1";
+        priceField.input.step = "1";
+        const categoryField = document.createElement("div");
+        categoryField.className = "field";
+        const categoryLabel = document.createElement("label");
+        categoryLabel.textContent = "Category";
+        const categorySelect = document.createElement("select");
+        ["Food", "Drinks"].forEach((category) => {
+          const option = document.createElement("option");
+          option.value = category;
+          option.textContent = category;
+          categorySelect.append(option);
+        });
+        categorySelect.value = product.category;
+        categoryField.append(categoryLabel, categorySelect);
+        const saveButton = document.createElement("button");
+        saveButton.className = "primary";
+        saveButton.type = "submit";
+        saveButton.textContent = "Save";
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove";
+        removeButton.type = "button";
+        removeButton.textContent = "Remove";
+        row.append(nameField.container, priceField.container, categoryField, saveButton, removeButton);
+        row.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const price = Number(priceField.input.value);
+          if (!nameField.input.value.trim() || !Number.isFinite(price) || price < 1) return;
+          products[index] = { ...product, name: nameField.input.value.trim(), price, category: categorySelect.value };
+          save();
+          renderProducts();
+        });
+        removeButton.addEventListener("click", () => {
+          products.splice(index, 1);
+          save();
+          renderProducts();
+        });
+        productList.append(row);
+      });
+    }
+
+    function makeField(labelText, type, value) {
+      const container = document.createElement("div");
+      container.className = "field";
+      const label = document.createElement("label");
+      label.textContent = labelText;
+      const input = document.createElement("input");
+      input.type = type;
+      input.value = value;
+      input.required = true;
+      if (type === "text") input.maxLength = 60;
+      container.append(label, input);
+      return { container, input };
+    }
+
+    document.getElementById("add-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("new-name").value.trim();
+      const price = Number(document.getElementById("new-price").value);
+      if (!name || !Number.isFinite(price) || price < 1) return;
+      const id = typeof crypto.randomUUID === "function" ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+      products.push({
+        id,
+        name,
+        price,
+        category: document.getElementById("new-category").value,
+        detail: document.getElementById("new-detail").value.trim() || "Per serving",
+        image: document.getElementById("new-image").value.trim()
+      });
+      save();
+      renderProducts();
+      event.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>

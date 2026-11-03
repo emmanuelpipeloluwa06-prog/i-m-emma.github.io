@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order | Iya-Mozzedat Food Vendor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 16px 48px;
+      color: #25291f;
+      background: linear-gradient(rgb(247 242 232 / 82%), rgb(232 238 229 / 86%)), url("breadand beans.png") center / cover no-repeat fixed;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .brand-title {
+      margin: 8px 0 16px;
+      color: chocolate;
+    }
+
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px auto 26px;
+    }
+
+    .site-nav a {
+      padding: 10px 14px;
+      border-radius: 5px;
+      color: #315b42;
+      background: #fffdf8;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .logo-image {
+      display: block;
+      width: min(430px, 100%);
+      height: auto;
+      margin: 0 auto 22px;
+    }
+
+    .form-group {
+      margin: 22px auto;
+      padding: clamp(20px, 5vw, 36px);
+      border: 1px solid #ded8ca;
+      border-radius: 8px;
+      background: #fffdf8;
+      box-shadow: 0 8px 20px rgb(53 60 42 / 7%);
+      text-align: left;
+    }
+
+    .form-heading {
+      background: #315b42;
+      color: #fffaf0;
+      text-align: center;
+    }
+
+    .form-heading h2 {
+      margin: 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin: 16px 0 7px;
+      font-weight: 700;
+    }
+
+    .form-group input:not([type="radio"]),
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+      background: white;
+      font: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .reason-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .reason-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .reason-option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      min-height: 50px;
+      margin: 24px auto 0;
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 20px;
+      color: white;
+      background: green;
+      font: 700 1rem Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #245b24;
+    }
+
+    .response-note {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1 class="brand-title">Iya-Mozzedat-Food-Vendor</h1>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="iya-mozzedat-menu.html">Menu</a>
+      <a href="Iya-Mozzedat-Contact.html">Contact</a>
+      <a href="cart-iya-mozzedat.html">Cart</a>
+      <a href="owner-dashboard.html">Owner</a>
+    </nav>
+
+    <img src="iya mozzedat.png" alt="Iya-Mozzedat-Food-Vendor logo" class="logo-image">
+
+    <section class="form-group form-heading">
+      <h2>PLACE YOUR ORDER OF DELICIOUS MEALS WITH UNLEASHED TASTE.</h2>
+    </section>
+
+    <form class="form-group" id="order-form">
+      <label for="first-name">First Name:</label>
+      <input id="first-name" type="text" autocomplete="given-name" placeholder="Enter your first name">
+
+      <label for="last-name">Last Name:</label>
+      <input id="last-name" type="text" autocomplete="family-name" placeholder="Enter your last name">
+
+      <label for="email">Email:</label>
+            <label id="Email" required>
+      <input id="email" type="email" autocomplete="email" placeholder="Enter your email address">
+
+      <label for="phone">Phone Number:</label>
+      <input id="phone" type="tel" autocomplete="tel" placeholder="Enter your phone number">
+
+      <label for="address">Address:</label>
+      <input id="address" type="text" autocomplete="street-address" placeholder="Enter your delivery address">
+
+      <label for="item">What to order:</label>
+      <select id="item" required>
+        <option value="">Select a meal</option>
+      </select>
+
+      <label for="quantity">Quantity:</label>
+      <input id="quantity" type="number" min="1" max="99" step="1" value="1" required
+        placeholder="Enter the number of meals">
+
+      <label for="description">Description (optional):</label>
+      <textarea id="description" placeholder="Add any details about your order"></textarea>
+
+      <label>Why the order?</label>
+      <div class="reason-list">
+        <label class="reason-option"><input type="radio" name="reason" value="party"> Need it for a party</label>
+        <label class="reason-option"><input type="radio" name="reason" value="wedding"> Need it for a wedding</label>
+        <label class="reason-option"><input type="radio" name="reason" value="corporate"> Need it for a corporate event</label>
+        <label class="reason-option"><input type="radio" name="reason" value="birthday"> Need it for a birthday</label>
+        <label class="reason-option"><input type="radio" name="reason" value="funeral"> Need it for a funeral</label>
+        <label class="reason-option"><input type="radio" name="reason" value="religious"> Need it for a religious event</label>
+        <label class="reason-option"><input type="radio" name="reason" value="school"> Need it for a school event</label>
+        <label class="reason-option"><input type="radio" name="reason" value="personal"> Need it for personal feeding</label>
+      </div>
+
+      <button class="submit-btn" type="submit">Submit Order</button>
+      <p class="response-note">Your meal and quantity will appear in the cart so you can review your order.</p>
+    </form>
+  </main>
+
+  <script src="products.js"></script>
+  <script>
+    const orderForm = document.getElementById("order-form");
+    const itemSelect = document.getElementById("item");
+    window.IyaProducts.getProducts().forEach((product) => {
+      const option = document.createElement("option");
+      option.value = product.name;
+      option.textContent = product.name;
+      itemSelect.append(option);
+    });
+    orderForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const item = document.getElementById("item").value;
+      const quantity = document.getElementById("quantity").value;
+      const cartUrl = new URL("cart-iya-mozzedat.html", window.location.href);
+      cartUrl.searchParams.set("item", item);
+      cartUrl.searchParams.set("quantity", quantity);
+      window.location.href = cartUrl.href;
+    });
+  </script>
+</body>
+</html>
